@@ -54,7 +54,13 @@ function makeCompanyTree(&$arr, $parentId = 0) {
 			unset($arr[$index]);
 			$children = makeCompanyTree($arr, $item['id']);
 			if (count($children) > 0) {
+				$totalCost = $r['cost'];
+				foreach ($children as $child) {
+					$totalCost+=$child['cost'];
+				}
+
 				$r['children'] = $children;
+				$r['cost'] = $totalCost;
 			}
 			$out[] = $r;
 		}
@@ -103,4 +109,3 @@ class TestScript {
 (new TestScript())->execute();
 
 ?>
-
